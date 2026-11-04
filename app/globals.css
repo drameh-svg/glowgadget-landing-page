@@ -1,0 +1,544 @@
+:root {
+  --bg: #161416;
+  --exterior: #050505;
+  --ink: #b3bfc0;
+  --page: 369px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background: var(--exterior);
+  color: var(--ink);
+  overflow-x: hidden;
+}
+
+body {
+  min-height: 100%;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: geometricPrecision;
+}
+
+button,
+input {
+  font-family: inherit;
+}
+
+.frame {
+  width: var(--page);
+  margin: 0 auto;
+}
+
+.page {
+  position: relative;
+  width: var(--page);
+  height: 2000px;
+  background: var(--bg);
+  overflow: hidden;
+}
+
+@media (max-width: 369px) {
+  .frame {
+    zoom: calc(100vw / 369);
+  }
+}
+
+.clip {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ---------- Hero ---------- */
+
+.hero {
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 286px;
+}
+
+.logo {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  width: 19px;
+  height: 19px;
+  border-radius: 50%;
+  background: #b6c2c3;
+}
+
+.pills {
+  position: absolute;
+  top: 16px;
+  left: 202px;
+  display: flex;
+  gap: 16px;
+}
+
+.pill {
+  width: 37px;
+  height: 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(168, 174, 176, 0.38);
+}
+
+.heroLock {
+  position: absolute;
+  top: 53px;
+  left: 33px;
+  width: 143px;
+  height: 192px;
+}
+
+.heroCopy h1 {
+  position: absolute;
+  top: 56px;
+  left: 194px;
+  margin: 0;
+  font-size: 21.6px;
+  font-weight: 800;
+  line-height: 26px;
+  letter-spacing: -0.02em;
+  color: #b4c0c1;
+  white-space: nowrap;
+}
+
+.heroCopy p {
+  position: absolute;
+  top: 182px;
+  left: 196px;
+  margin: 0;
+  width: 168px;
+  font-size: 7px;
+  font-weight: 400;
+  line-height: 10.5px;
+  letter-spacing: -0.005em;
+  color: #6a6f70;
+}
+
+.rsvp {
+  position: absolute;
+  top: 210px;
+  left: 198px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 19px;
+  padding: 0 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(176, 182, 184, 0.5);
+  background: transparent;
+  color: #9ec67a;
+  font-size: 7.5px;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  text-decoration: none;
+  line-height: 1;
+}
+
+/* ---------- Wordmark ---------- */
+
+.wordmark {
+  position: absolute;
+  top: 276px;
+  left: 0;
+  width: 100%;
+  height: 80px;
+}
+
+.wordmark p {
+  margin: 2px 0 0;
+  text-align: center;
+  font-size: 66px;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.05em;
+  color: rgba(74, 80, 82, 0.86);
+  white-space: nowrap;
+  filter: blur(0.7px);
+  text-shadow: 0 0 12px rgba(176, 188, 190, 0.2);
+}
+
+.edgeGlow {
+  position: absolute;
+  top: 14px;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(190, 230, 232, 0.55) 0%,
+    rgba(120, 190, 198, 0.18) 42%,
+    transparent 70%
+  );
+  filter: blur(1px);
+  pointer-events: none;
+}
+
+.edgeGlowLeft {
+  left: -26px;
+}
+
+.edgeGlowRight {
+  right: -26px;
+}
+
+/* ---------- Statement ---------- */
+
+.statement {
+  position: absolute;
+  top: 360px;
+  left: 0;
+  width: 100%;
+  height: 400px;
+}
+
+.statement h2 {
+  margin: 6px 0 0;
+  text-align: center;
+  font-size: 17.4px;
+  font-weight: 700;
+  line-height: 22px;
+  letter-spacing: 0.018em;
+  color: #b3bfc0;
+}
+
+.statementFigure {
+  position: absolute;
+  top: 74px;
+  left: 0;
+  margin: 0;
+}
+
+.statementFigure img {
+  display: block;
+  width: 369px;
+  height: 318px;
+}
+
+/* ---------- How it works ---------- */
+
+.how {
+  position: absolute;
+  top: 760px;
+  left: 0;
+  width: 100%;
+  height: 470px;
+}
+
+.how h2 {
+  margin: 18px 0 0;
+  text-align: center;
+  font-size: 20.5px;
+  font-weight: 700;
+  letter-spacing: 0.055em;
+  color: #b3bfc0;
+}
+
+.steps {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.stepImg {
+  position: absolute;
+  height: auto;
+}
+
+.step1 .stepImg {
+  left: 18px;
+  top: 62px;
+  width: 158px;
+  height: 110px;
+}
+
+.step2 .stepImg {
+  left: 211px;
+  top: 186px;
+  width: 138px;
+  height: 119px;
+}
+
+.step3 .stepImg {
+  left: 25px;
+  top: 330px;
+  width: 134px;
+  height: 113px;
+}
+
+.num {
+  position: absolute;
+  font-weight: 700;
+  line-height: 0.75;
+  letter-spacing: -0.04em;
+  background-image: var(--num-grad);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.num1 {
+  left: 176px;
+  top: 68px;
+  font-size: 92px;
+  --num-grad: linear-gradient(180deg, #d4a4c0 0%, #8d6e80 52%, #3c3b43 100%);
+}
+
+.num2 {
+  left: 26px;
+  top: 208px;
+  font-size: 88px;
+  --num-grad: linear-gradient(180deg, #e4eef0 0%, #7e989e 48%, #3a4650 100%);
+}
+
+.num3 {
+  left: 174px;
+  top: 366px;
+  font-size: 88px;
+  --num-grad: linear-gradient(180deg, #e3f0c4 0%, #7ea862 46%, #3d5442 100%);
+}
+
+.stepCopy {
+  position: absolute;
+  margin: 0;
+  font-size: 13.5px;
+  font-weight: 700;
+  line-height: 15.5px;
+  letter-spacing: 0.012em;
+}
+
+.copy1 {
+  left: 222px;
+  top: 108px;
+  color: #f1acd0;
+}
+
+.copy2 {
+  left: 104px;
+  top: 254px;
+  color: #d5e0e2;
+}
+
+.copy3 {
+  left: 242px;
+  top: 406px;
+  color: #c5e09a;
+}
+
+/* ---------- Colorways ---------- */
+
+.colorways {
+  position: absolute;
+  top: 1236px;
+  left: 0;
+  width: 369px;
+  height: 213px;
+}
+
+.colorwaysImg {
+  display: block;
+  width: 369px;
+  height: 213px;
+}
+
+/* ---------- Custom ---------- */
+
+.custom {
+  position: absolute;
+  top: 1484px;
+  left: 0;
+  width: 100%;
+  height: 230px;
+}
+
+.custom h2 {
+  margin: 5px 0 0;
+  text-align: center;
+  font-size: 13.2px;
+  font-weight: 700;
+  line-height: 17px;
+  letter-spacing: 0.04em;
+  color: #b3bfc0;
+}
+
+.customFigure {
+  position: absolute;
+  top: 56px;
+  left: 0;
+  margin: 0;
+}
+
+.customImg {
+  display: block;
+  width: 288px;
+  height: 170px;
+}
+
+/* ---------- Brand ---------- */
+
+.brand {
+  position: absolute;
+  top: 1680px;
+  left: 0;
+  width: 100%;
+  height: 236px;
+}
+
+.lineGlow,
+.lineGadget {
+  position: absolute;
+  margin: 0;
+  font-weight: 700;
+  letter-spacing: -0.045em;
+  line-height: 0.85;
+  color: rgba(96, 102, 104, 0.62);
+  filter: blur(0.4px);
+  text-shadow: 0 0 14px rgba(180, 192, 192, 0.2);
+  white-space: nowrap;
+}
+
+.lineGlow {
+  right: -18px;
+  top: 18px;
+  font-size: 92px;
+}
+
+.lineGadget {
+  left: -124px;
+  top: 102px;
+  font-size: 100px;
+}
+
+.brandLock {
+  position: absolute;
+  left: 134px;
+  top: 37px;
+  width: 111px;
+  height: 148px;
+  z-index: 1;
+}
+
+.brandGlow {
+  position: absolute;
+  left: -28px;
+  top: 108px;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(190, 230, 234, 0.45) 0%,
+    rgba(120, 190, 200, 0.12) 46%,
+    transparent 72%
+  );
+  filter: blur(1px);
+  pointer-events: none;
+}
+
+.tagline {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 206px;
+  margin: 0;
+  text-align: center;
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 0.012em;
+  color: #8b9192;
+}
+
+/* ---------- Waitlist ---------- */
+
+.waitlist {
+  position: absolute;
+  top: 1916px;
+  left: 0;
+  width: 100%;
+  height: 84px;
+  background: #282828;
+  text-align: center;
+}
+
+.waitlist h2 {
+  margin: 16px 0 0;
+  font-size: 16.5px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  color: #d6d6d6;
+}
+
+.formRow {
+  position: absolute;
+  top: 45px;
+  left: 80px;
+  width: 209px;
+  height: 22px;
+  display: flex;
+  align-items: center;
+  border: 1px solid #6d6d6d;
+  border-radius: 999px;
+  background: #262626;
+  padding: 1px;
+}
+
+.formRow input {
+  flex: 1;
+  min-width: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  outline: none;
+  background: transparent;
+  color: #d5d5d5;
+  font-size: 8px;
+  padding: 0 4px 0 12px;
+}
+
+.formRow input::placeholder {
+  color: #6a6a6a;
+  opacity: 1;
+}
+
+.formRow button {
+  flex: none;
+  height: 18px;
+  border: 0;
+  border-radius: 999px;
+  background: #dadada;
+  color: #555;
+  font-size: 6.5px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  padding: 0 8px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.formNote {
+  position: absolute;
+  top: 70px;
+  left: 20px;
+  right: 20px;
+  margin: 0;
+  font-size: 8px;
+  line-height: 11px;
+  font-weight: 400;
+  color: #9aa0a1;
+}
+
+.formNoteBad {
+  color: #c7a3a6;
+}
