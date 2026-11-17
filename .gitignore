@@ -4,3 +4,6 @@ out
 .vercel
 *.log
 tsconfig.tsbuildinfo
+.env
+.env.local
+.env*.local

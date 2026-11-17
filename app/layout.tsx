@@ -1,17 +1,10 @@
 import type { Metadata } from "next";
-import { Archivo } from "next/font/google";
 import "./globals.css";
 
-const archivo = Archivo({
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700", "800"],
-  display: "swap",
-});
-
 export const metadata: Metadata = {
-  title: "Glow Gadget",
+  title: "Glow Gadget — Playful utility, practical accessory",
   description:
-    "The stylish bag charm that transfers photos from your camera to your phone in seconds.",
+    "A compact, stylish way to upload and share digital-camera photos shortly after taking them.",
 };
 
 export default function RootLayout({
@@ -21,7 +14,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={archivo.className}>{children}</body>
+      <body>{children}</body>
     </html>
   );
 }
