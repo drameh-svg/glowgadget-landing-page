@@ -17,8 +17,8 @@ export default function PrivacyPage() {
         </Link>
         <h1>Privacy</h1>
         <p>
-          When you join the Orbit release list, we store the email address you submit so we can send you launch updates
-          and early-access news.
+          When you join the Orbit release list, your email is saved with Supabase Authentication so we can send launch
+          updates and early-access news.
         </p>
         <p>Our full privacy policy is coming soon.</p>
       </main>
