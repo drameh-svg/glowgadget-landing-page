@@ -123,9 +123,6 @@ function OpenSequence() {
 }
 
 function CarrySection() {
-  const [mode, setMode] = useState<"charm" | "reader">("charm");
-  const reader = mode === "reader";
-
   return (
     <section className="carry" aria-labelledby="carry-title">
       <div className="carry-copy">
@@ -134,24 +131,6 @@ function CarrySection() {
           Orbit works as a practical reader and a sculptural bag charm. Its brushed-silver body fits naturally with the
           hardware already on your bag.
         </p>
-        <div className="mode-row">
-          <button type="button" className={reader ? undefined : "on"} onClick={() => setMode("charm")}>
-            Charm mode
-          </button>
-          <div className="mode-note">
-            <span className="pill">{reader ? "Reader mode" : "Charm mode"}</span>
-            <Image
-              src={reader ? "/orbit/orbit-stage-ready.webp" : "/orbit/orbit-closed-studio.webp"}
-              alt={reader ? "Orbit opened into reader mode" : "Orbit closed, hanging as a charm"}
-              width={72}
-              height={72}
-            />
-            <p>{reader ? "Open it when you need to move photos." : "Carry it on your bag."}</p>
-          </div>
-          <button type="button" className={reader ? "on" : undefined} onClick={() => setMode("reader")}>
-            Reader mode
-          </button>
-        </div>
       </div>
       <div className="bag-grid">
         <figure>
