@@ -6,10 +6,10 @@ Vercel-ready Next.js landing page with email capture and optional Meta Pixel sup
 
 1. Run `npm install`
 2. Copy `.env.example` to `.env.local`
-3. Add a Resend API key and the inbox that should receive signups
+3. Add your Supabase project URL and publishable key
 4. Run `npm run dev`
 
-In development, the form returns a success state even without Resend credentials and logs the signup to the terminal. In production, credentials are required so no visitor is shown a false success message.
+The release form creates a Supabase Auth user for that email. In the Supabase dashboard, turn off “Confirm email” if you want people added to the list without a confirmation message. Without the Supabase variables, the form says signup is not configured.
 
 ## Vercel
 
