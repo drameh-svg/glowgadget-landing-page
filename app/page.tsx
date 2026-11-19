@@ -2,8 +2,24 @@
 
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import { ConstellationGallery } from "@/app/components/ConstellationGallery";
 import { ReleaseForm } from "@/app/components/ReleaseForm";
 import { SiteFooter, SiteHeader } from "@/app/components/SiteChrome";
+
+const galleryItems = [
+  { src: "/orbit/photos-added.jpg", alt: "A hand holding a phone with Orbit plugged in and photos added", title: "Share the night", subtitle: "Photos land on the phone before the night ends" },
+  { src: "/orbit/phone-hand.jpg", alt: "Orbit plugged into a phone showing a grid of photos", title: "On the phone", subtitle: "USB-C, straight into the camera roll" },
+  { src: "/orbit/laptop.jpg", alt: "Orbit plugged into a laptop beside a compact camera", title: "Or a laptop", subtitle: "USB-A for the bigger screen" },
+  { src: "/orbit/exploded.png", alt: "Orbit opened to show USB-C, USB-A, SD, and microSD", title: "Everything inside", subtitle: "Caps off, cards in" },
+  { src: "/orbit/stages.jpg", alt: "Orbit closed, opening, and ready to transfer", title: "Three states", subtitle: "Closed, open, ready" },
+  { src: "/orbit/closed.jpg", alt: "Orbit closed, standing like a brushed-silver charm", title: "Charm mode", subtitle: "Closed, and ready to carry" },
+  { src: "/orbit/charm-light.jpg", alt: "Orbit charm on a light background", title: "Orbit", subtitle: "A silver charm that reads cards" },
+  { src: "/orbit/charm-dark.jpg", alt: "Orbit charm on a dark background", title: "Orbit", subtitle: "Brushed silver" },
+  { src: "/orbit/bag-mint.jpg", alt: "Orbit attached to a mint green handbag", title: "On the bag", subtitle: "Mint hardware, silver charm" },
+  { src: "/orbit/bag-suede.jpg", alt: "Orbit clipped to a beige suede bag next to a camera", title: "Packed for the night", subtitle: "Camera, cards, charm" },
+  { src: "/orbit/bag-night.png", alt: "Orbit hanging from a burgundy bag at night", title: "Out with you", subtitle: "It stays on the strap" },
+  { src: "/orbit/import-diner.png", alt: "A phone importing photos from Orbit at a diner table", title: "Import", subtitle: "Choose the frames worth keeping" },
+];
 
 const stages = [
   {
@@ -37,28 +53,28 @@ const steps = [
     n: "1",
     title: "Insert the card",
     body: "Slide your camera’s SD or microSD card into Orbit.",
-    src: "/orbit/orbit-open-studio.webp",
-    alt: "Orbit opened with its caps lifted, showing SD and microSD cards in their slots",
-    width: 1200,
-    height: 900,
+    src: "/orbit/exploded.png",
+    alt: "Orbit opened to show USB-C, USB-A, an SD card, and a microSD card",
+    width: 1024,
+    height: 512,
   },
   {
     n: "2",
     title: "Plug in the charm",
     body: "Connect Orbit directly to your phone or laptop.",
-    src: "/orbit/orbit-laptop-camera.webp",
+    src: "/orbit/laptop.jpg",
     alt: "Orbit plugged into a laptop beside a compact camera",
-    width: 1400,
-    height: 933,
+    width: 1024,
+    height: 682,
   },
   {
     n: "3",
     title: "Upload and share",
     body: "Choose your photos and add them to a shared album.",
-    src: "/orbit/orbit-share-screen.webp",
-    alt: "A phone screen confirming Photos Added, with a grid of photos from the night",
-    width: 800,
-    height: 1000,
+    src: "/orbit/import-diner.png",
+    alt: "A phone importing photos from Orbit at a diner table",
+    width: 655,
+    height: 655,
   },
 ] as const;
 
@@ -135,19 +151,19 @@ function CarrySection() {
       <div className="bag-grid">
         <figure>
           <Image
-            src="/orbit/bag-pink.jpg"
-            alt="Orbit hanging from a pale pink shoulder bag"
-            width={928}
-            height={1116}
+            src="/orbit/bag-night.png"
+            alt="Orbit hanging from a burgundy bag at night"
+            width={432}
+            height={370}
             sizes="(max-width: 800px) 100vw, 46vw"
           />
         </figure>
         <figure>
           <Image
-            src="/orbit/bag-suede-floor.webp"
+            src="/orbit/bag-suede.jpg"
             alt="Orbit clipped to a beige suede bag next to a camera"
             width={736}
-            height={900}
+            height={1070}
             sizes="(max-width: 800px) 100vw, 40vw"
           />
         </figure>
@@ -210,35 +226,28 @@ export default function HomePage() {
     <>
       <SiteHeader />
       <main id="main">
-        <section className="hero" id="top">
-          <Image
-            className="hero-photo"
-            src="/orbit/orbit-hero.webp"
-            alt="A hand holding a phone with Orbit plugged in, showing a Photos Added confirmation"
-            fill
-            priority
-            sizes="100vw"
-          />
-          <div className="hero-shade" />
-          <div className="hero-copy">
-            <p className="eyebrow">
-              <span />
-              Orbit by Glow Gadget
-            </p>
-            <h1>Share your photos before the night ends.</h1>
-            <p className="lede">
-              Orbit moves photos from your camera to your phone in seconds, so everyone gets the pictures while the
-              moment is still happening.
-            </p>
-            <div className="hero-actions">
-              <a className="btn solid" href="#early-access">
-                Get early access
-              </a>
-              <a className="btn ghost" href="#product">
-                Discover Orbit
-              </a>
+        <section className="hero hero-gallery" id="top">
+          <ConstellationGallery items={galleryItems} count={18} accentColor="#c8ccd4">
+            <div className="hero-copy gallery-copy">
+              <p className="eyebrow">
+                <span />
+                Orbit by Glow Gadget
+              </p>
+              <h1>Share your photos before the night ends.</h1>
+              <p className="lede">
+                Orbit moves photos from your camera to your phone in seconds, so everyone gets the pictures while the
+                moment is still happening.
+              </p>
+              <div className="hero-actions">
+                <a className="btn solid" href="#early-access">
+                  Get early access
+                </a>
+                <a className="btn ghost" href="#product">
+                  Discover Orbit
+                </a>
+              </div>
             </div>
-          </div>
+          </ConstellationGallery>
         </section>
 
         <section className="product" id="product" aria-labelledby="product-title">
@@ -247,10 +256,10 @@ export default function HomePage() {
           </p>
           <figure className="arch">
             <Image
-              src="/orbit/orbit-closed-studio.webp"
+              src="/orbit/closed.jpg"
               alt="Orbit closed, standing upright like a brushed-silver charm"
-              width={1400}
-              height={1045}
+              width={1024}
+              height={765}
               sizes="(max-width: 800px) 80vw, 420px"
             />
             <figcaption>Orbit, closed. Charm mode.</figcaption>
