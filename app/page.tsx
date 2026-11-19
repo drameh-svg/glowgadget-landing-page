@@ -7,12 +7,12 @@ import { ReleaseForm } from "@/app/components/ReleaseForm";
 import { SiteFooter, SiteHeader } from "@/app/components/SiteChrome";
 
 const galleryItems = [
-  { src: "/orbit/photos-added.jpg", alt: "A hand holding a phone with Orbit plugged in and photos added", title: "Share the night", subtitle: "Photos land on the phone before the night ends" },
+  { src: "/orbit/hero-hand.jpg", alt: "A hand holding a phone with Orbit plugged in and photos added", title: "Share the night", subtitle: "Photos land on the phone before the night ends" },
   { src: "/orbit/phone-hand.jpg", alt: "Orbit plugged into a phone showing a grid of photos", title: "On the phone", subtitle: "USB-C, straight into the camera roll" },
   { src: "/orbit/laptop.jpg", alt: "Orbit plugged into a laptop beside a compact camera", title: "Or a laptop", subtitle: "USB-A for the bigger screen" },
-  { src: "/orbit/exploded.png", alt: "Orbit opened to show USB-C, USB-A, SD, and microSD", title: "Everything inside", subtitle: "Caps off, cards in" },
-  { src: "/orbit/stages.jpg", alt: "Orbit closed, opening, and ready to transfer", title: "Three states", subtitle: "Closed, open, ready" },
-  { src: "/orbit/closed.jpg", alt: "Orbit closed, standing like a brushed-silver charm", title: "Charm mode", subtitle: "Closed, and ready to carry" },
+  { src: "/orbit/usb-open.png", alt: "Orbit opened to show USB-C, USB-A, SD, and microSD", title: "USB & USB-C", subtitle: "Both ends, both cards" },
+  { src: "/orbit/usb-caps.png", alt: "Orbit with both protective caps unscrewed", title: "Caps off", subtitle: "Ready to plug in" },
+  { src: "/orbit/usb-closed.png", alt: "Orbit closed, a brushed-silver bag charm", title: "Charm mode", subtitle: "Closed, and ready to carry" },
   { src: "/orbit/charm-light.jpg", alt: "Orbit charm on a light background", title: "Orbit", subtitle: "A silver charm that reads cards" },
   { src: "/orbit/charm-dark.jpg", alt: "Orbit charm on a dark background", title: "Orbit", subtitle: "Brushed silver" },
   { src: "/orbit/bag-mint.jpg", alt: "Orbit attached to a mint green handbag", title: "On the bag", subtitle: "Mint hardware, silver charm" },
@@ -21,31 +21,25 @@ const galleryItems = [
   { src: "/orbit/import-diner.png", alt: "A phone importing photos from Orbit at a diner table", title: "Import", subtitle: "Choose the frames worth keeping" },
 ];
 
-const stages = [
+const connectors = [
   {
-    name: "Closed",
-    src: "/orbit/orbit-stage-closed.webp",
-    alt: "Orbit closed, standing upright like a brushed-silver charm",
+    src: "/orbit/usb-closed.png",
+    alt: "Orbit closed, a brushed-silver bag charm",
+    width: 1024,
+    height: 341,
   },
   {
-    name: "Open",
-    src: "/orbit/orbit-stage-open.webp",
-    alt: "Orbit with its caps lifted",
+    src: "/orbit/usb-caps.png",
+    alt: "Orbit with both protective caps unscrewed",
+    width: 1024,
+    height: 341,
   },
   {
-    name: "Ready to transfer",
-    src: "/orbit/orbit-stage-ready.webp",
-    alt: "Orbit opened with SD and microSD cards in their slots",
+    src: "/orbit/usb-open.png",
+    alt: "Orbit opened to show a USB-C plug, a USB-A plug, an SD card, and a microSD card",
+    width: 1024,
+    height: 512,
   },
-] as const;
-
-const callouts = [
-  ["Attachment ring", "Carry Orbit as a charm"],
-  ["USB-C connector", "For phones"],
-  ["SD card slot", ""],
-  ["microSD card slot", ""],
-  ["USB-A connector", "For laptops"],
-  ["Removable protective caps", ""],
 ] as const;
 
 const steps = [
@@ -53,7 +47,7 @@ const steps = [
     n: "1",
     title: "Insert the card",
     body: "Slide your camera’s SD or microSD card into Orbit.",
-    src: "/orbit/exploded.png",
+    src: "/orbit/usb-open.png",
     alt: "Orbit opened to show USB-C, USB-A, an SD card, and a microSD card",
     width: 1024,
     height: 512,
@@ -78,61 +72,16 @@ const steps = [
   },
 ] as const;
 
-function OpenSequence() {
-  const [stage, setStage] = useState(0);
-
-  useEffect(() => {
-    const section = document.getElementById("inside");
-    if (!section) return;
-    const onScroll = () => {
-      const rect = section.getBoundingClientRect();
-      const total = section.offsetHeight - window.innerHeight;
-      const passed = Math.min(Math.max(-rect.top, 0), Math.max(total, 1));
-      const progress = total > 0 ? passed / total : 0;
-      setStage(progress < 0.34 ? 0 : progress < 0.67 ? 1 : 2);
-    };
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-
+function CompatibleSection() {
   return (
-    <section className="inside" id="inside" aria-labelledby="inside-title">
-      <div className="inside-sticky">
-        <div className="inside-head">
-          <div>
-            <h2 id="inside-title">Everything, tucked inside.</h2>
-            <p>Keep scrolling to open Orbit.</p>
-          </div>
-          <ol className="stage-tabs">
-            {stages.map((item, index) => (
-              <li key={item.name} className={index === stage ? "on" : undefined}>
-                {item.name}
-              </li>
-            ))}
-          </ol>
-        </div>
-        <div className="stage-frame">
-          {stages.map((item, index) => (
-            <Image
-              key={item.src}
-              src={item.src}
-              alt={index === stage ? item.alt : ""}
-              fill
-              sizes="(max-width: 800px) 100vw, 720px"
-              className={index === stage ? "stage-photo show" : "stage-photo"}
-            />
-          ))}
-          <span className="orbit-line" aria-hidden="true" />
-        </div>
-        <ul className={`callouts ${stage === 2 ? "show" : ""}`}>
-          {callouts.map(([title, detail]) => (
-            <li key={title}>
-              <p>{title}</p>
-              {detail ? <p>{detail}</p> : null}
-            </li>
-          ))}
-        </ul>
+    <section className="compatible" id="inside" aria-labelledby="inside-title">
+      <h2 id="inside-title">Compatible with both USB & USB-C</h2>
+      <div className="usb-row">
+        {connectors.map((item) => (
+          <figure key={item.src}>
+            <Image src={item.src} alt={item.alt} width={item.width} height={item.height} sizes="(max-width: 800px) 100vw, 900px" />
+          </figure>
+        ))}
       </div>
     </section>
   );
@@ -226,51 +175,46 @@ export default function HomePage() {
     <>
       <SiteHeader />
       <main id="main">
-        <section className="hero hero-gallery" id="top">
-          <ConstellationGallery items={galleryItems} count={18} accentColor="#c8ccd4">
-            <div className="hero-copy gallery-copy">
-              <p className="eyebrow">
-                <span />
-                Orbit by Glow Gadget
-              </p>
-              <h1>Share your photos before the night ends.</h1>
-              <p className="lede">
-                Orbit moves photos from your camera to your phone in seconds, so everyone gets the pictures while the
-                moment is still happening.
-              </p>
-              <div className="hero-actions">
-                <a className="btn solid" href="#early-access">
-                  Get early access
-                </a>
-                <a className="btn ghost" href="#product">
-                  Discover Orbit
-                </a>
-              </div>
+        <section className="hero" id="top">
+          <Image
+            className="hero-photo"
+            src="/orbit/hero-hand.jpg"
+            alt="A hand holding a phone with Orbit plugged in and a Photos Added confirmation"
+            fill
+            priority
+            sizes="100vw"
+          />
+          <div className="hero-shade" aria-hidden="true" />
+          <div className="hero-copy">
+            <p className="eyebrow">
+              <span />
+              Orbit by Glow Gadget
+            </p>
+            <h1>Share your photos before the night ends.</h1>
+            <p className="lede">
+              Orbit moves photos from your camera to your phone in seconds, so everyone gets the pictures while the
+              moment is still happening.
+            </p>
+            <div className="hero-actions">
+              <a className="btn solid" href="#early-access">
+                Get early access
+              </a>
+              <a className="btn ghost" href="#product">
+                Discover Orbit
+              </a>
             </div>
-          </ConstellationGallery>
-        </section>
-
-        <section className="product" id="product" aria-labelledby="product-title">
-          <p className="watermark" aria-hidden="true">
-            Orbit
-          </p>
-          <figure className="arch">
-            <Image
-              src="/orbit/closed.jpg"
-              alt="Orbit closed, standing upright like a brushed-silver charm"
-              width={1024}
-              height={765}
-              sizes="(max-width: 800px) 80vw, 420px"
-            />
-            <figcaption>Orbit, closed. Charm mode.</figcaption>
-          </figure>
-          <div className="product-copy">
-            <h2 id="product-title">An SD card reader that doubles as a charm.</h2>
-            <p>Carry it on your bag. Open it when you need to move photos.</p>
           </div>
         </section>
 
-        <OpenSequence />
+        <section className="gallery-band" id="product" aria-labelledby="product-title">
+          <div className="gallery-intro">
+            <h2 id="product-title">An SD Card reader that doubles as a bag charm.</h2>
+            <p>So you never have to wait to see digi-cam photos again.</p>
+          </div>
+          <ConstellationGallery items={galleryItems} count={18} accentColor="#c8ccd4" className="gallery-stage" />
+        </section>
+
+        <CompatibleSection />
 
         <section className="how" id="how" aria-labelledby="how-title">
           <h2 id="how-title" className="sr-only">
