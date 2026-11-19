@@ -34,11 +34,11 @@ function place(
     const slot = Math.floor(index / rings);
     const perRing = Math.ceil(count / rings);
     const direction = ring % 2 === 0 ? 1 : -1;
-    const radius = 0.7 + ring * 0.22;
+    const radius = 0.8 + ring * 0.2;
     const angle = (slot / perRing) * Math.PI * 2 + time * spin * 0.32 * direction + ring * 0.6;
     return {
       x: Math.cos(angle) * radius,
-      y: Math.sin(angle) * radius * 0.58,
+      y: Math.sin(angle) * radius * 0.8,
       z: (ring - 1) * 0.35,
       rot: angle * 0.04,
     };
@@ -136,7 +136,7 @@ export function ConstellationGallery({
       last = now;
       if (!reduce && openRef.current === null && !hovering) elapsed += dt;
       if (!reduce && openRef.current === null && blend < 1) blend = Math.min(1, blend + dt / 1.15);
-      if (!reduce && openRef.current === null && !hovering && elapsed > interval) {
+      if (!reduce && openRef.current === null && !hovering && formations.length > 1 && elapsed > interval) {
         elapsed = 0;
         blend = 0;
         fromFormation = toFormation;
@@ -146,7 +146,7 @@ export function ConstellationGallery({
       }
 
       const rect = root.getBoundingClientRect();
-      const card = Math.max(92, Math.min(168, rect.width * 0.13));
+      const card = Math.max(88, Math.min(148, rect.width * 0.11));
       const ease = blend * blend * (3 - 2 * blend);
       const gather = Math.sin(Math.min(blend, 1) * Math.PI);
       const time = reduce ? 0.4 : elapsed;
@@ -157,12 +157,12 @@ export function ConstellationGallery({
         const to = place(toFormation, index, count, time, spin, rings);
         const point = mix(from, to, ease, blend < 1 ? gather : 0);
         const depth = 0.82 + (point.z + 1) * 0.22;
-        const x = point.x * rect.width * 0.46;
+        const x = point.x * rect.width * 0.4;
         const y = point.y * rect.height * 0.42;
         node.style.width = `${card}px`;
         node.style.height = `${card * 0.7}px`;
         node.style.zIndex = String(6 + Math.round((point.z + 1) * 4));
-        node.style.opacity = String(Math.max(0.45, Math.min(1, 0.55 + point.z * 0.35)));
+        node.style.opacity = "1";
         node.style.transform = `translate(-50%, -50%) translate3d(${x}px, ${y}px, 0) scale(${depth}) rotate(${point.rot}rad)`;
       });
       frame = requestAnimationFrame(tick);
@@ -200,7 +200,7 @@ export function ConstellationGallery({
       style={{ ["--accent" as string]: accentColor }}
       data-formation={formationName}
     >
-      <div className="constellation-stage" aria-label="Rotating photo gallery. Cards move through rings, a spiral, a globe, and a drifting field.">
+      <div className="constellation-stage" aria-label="Photos orbiting the Orbit charm.">
         {Array.from({ length: count }, (_, index) => {
           const item = items[index % items.length];
           return (
