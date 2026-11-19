@@ -3,7 +3,9 @@
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { ConstellationGallery } from "@/app/components/ConstellationGallery";
+import HoloMosaic from "@/app/components/HoloMosaic";
 import { ReleaseForm } from "@/app/components/ReleaseForm";
+import { Reveal } from "@/app/components/Reveal";
 import { SiteFooter, SiteHeader } from "@/app/components/SiteChrome";
 
 const galleryItems = [
@@ -91,7 +93,9 @@ function CompatibleSection() {
   return (
     <section className="inside" id="inside" aria-labelledby="inside-title">
       <div className="inside-sticky">
-        <h2 id="inside-title">Compatible with both USB & USB-C</h2>
+        <Reveal>
+          <h2 id="inside-title">Compatible with both USB & USB-C</h2>
+        </Reveal>
         <ol className="stage-tabs">
           {connectors.map((item, index) => (
             <li key={item.name} className={index === stage ? "on" : undefined}>
@@ -119,9 +123,33 @@ function CompatibleSection() {
 function CarrySection() {
   return (
     <section className="carry" id="carry" aria-labelledby="carry-title">
-      <div className="carry-copy">
-        <h2 id="carry-title">Built to stay with you.</h2>
+      <div className="carry-holo" aria-hidden="true">
+        <HoloMosaic
+          color="#060608"
+          metalColor="#e8ebf1"
+          spectrum="full"
+          tileSize={1}
+          gap={0.08}
+          scatter={0.3}
+          tilt={0.35}
+          saturation={0.1}
+          intensity={1.25}
+          ripple={0.6}
+          glitter={0.85}
+          sheen={0.8}
+          grain={0.08}
+          speed={0.5}
+          intro
+          mouseInteraction
+          flipOnClick
+        />
       </div>
+      <div className="carry-inner">
+      <Reveal>
+        <div className="carry-copy">
+          <h2 id="carry-title">Built to stay with you.</h2>
+        </div>
+      </Reveal>
       <div className="bag-grid">
         <figure>
           <Image
@@ -168,6 +196,7 @@ function CarrySection() {
             sizes="(max-width: 800px) 50vw, 30vw"
           />
         </figure>
+      </div>
       </div>
     </section>
   );
@@ -246,10 +275,12 @@ export default function HomePage() {
         </section>
 
         <section className="gallery-band" id="product" aria-labelledby="product-title">
-          <div className="gallery-intro">
-            <h2 id="product-title">An SD Card reader that doubles as a bag charm.</h2>
-            <p>So you never have to wait to see digi-cam photos again.</p>
-          </div>
+          <Reveal>
+            <div className="gallery-intro">
+              <h2 id="product-title">An SD Card reader that doubles as a bag charm.</h2>
+              <p>So you never have to wait to see digi-cam photos again.</p>
+            </div>
+          </Reveal>
           <ConstellationGallery
             items={[...galleryItems]}
             count={galleryItems.length}
@@ -270,7 +301,8 @@ export default function HomePage() {
             How it works
           </h2>
           {steps.map((step, index) => (
-            <article key={step.n} className={index % 2 ? "step flip" : "step"}>
+            <Reveal key={step.n} delay={index * 40}>
+            <article className={index % 2 ? "step flip" : "step"}>
               <div className="step-copy">
                 <span className="step-num" aria-hidden="true">
                   {step.n}
@@ -283,16 +315,19 @@ export default function HomePage() {
                 <Image src={step.src} alt={step.alt} width={step.width} height={step.height} sizes="(max-width: 800px) 100vw, 46vw" />
               </figure>
             </article>
+            </Reveal>
           ))}
         </section>
 
         <CarrySection />
 
         <section className="early" id="early-access" aria-labelledby="early-title">
-          <div className="early-panel">
-            <h2 id="early-title">Be first to carry Orbit.</h2>
-            <ReleaseForm source="early-access" buttonLabel="Get early access" inputId="early-email" />
-          </div>
+          <Reveal>
+            <div className="early-panel">
+              <h2 id="early-title">Be first to carry Orbit.</h2>
+              <ReleaseForm source="early-access" buttonLabel="Get early access" inputId="early-email" />
+            </div>
+          </Reveal>
         </section>
       </main>
       <SiteFooter />

@@ -146,7 +146,7 @@ export function ConstellationGallery({
       }
 
       const rect = root.getBoundingClientRect();
-      const card = Math.max(88, Math.min(148, rect.width * 0.11));
+      const card = Math.max(76, Math.min(128, rect.width * 0.095));
       const ease = blend * blend * (3 - 2 * blend);
       const gather = Math.sin(Math.min(blend, 1) * Math.PI);
       const time = reduce ? 0.4 : elapsed;
