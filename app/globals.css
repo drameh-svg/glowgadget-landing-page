@@ -232,19 +232,46 @@ h1, h2, h3, .success-title {
   line-height: 1.02;
 }
 
-.compatible {
+.inside { height: 260vh; position: relative; }
+.inside-sticky {
+  position: sticky;
+  top: 72px;
+  height: calc(100svh - 72px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   width: min(980px, calc(100% - 40px));
   margin: 0 auto;
-  padding: 72px 0 24px;
 }
-.compatible h2 { text-align: center; margin-bottom: 36px; }
-.usb-row { display: grid; gap: 8px; }
-.usb-row figure { margin: 0; }
-.usb-row img {
-  width: 100%;
-  height: auto;
-  display: block;
+.inside-sticky h2 { margin: 0; text-align: center; }
+.stage-tabs {
+  display: flex;
+  justify-content: center;
+  gap: 22px;
+  margin: 18px 0 0;
+  padding: 0;
+  list-style: none;
+  color: var(--muted);
+  font-size: 13px;
 }
+.stage-tabs .on { color: var(--ink); }
+.stage-tabs .on::before {
+  content: "";
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  margin-right: 8px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 10px var(--accent);
+}
+.stage-frame {
+  position: relative;
+  height: min(48vh, 440px);
+  margin-top: 18px;
+}
+.stage-photo { object-fit: contain; opacity: 0; transition: opacity 0.55s ease; }
+.stage-photo.show { opacity: 1; }
 
 .how { width: min(1240px, calc(100% - 40px)); margin: 0 auto; padding: 40px 0 20px; }
 .step {
@@ -314,10 +341,12 @@ h1, h2, h3, .success-title {
   width: min(560px, 100%);
   margin: 0 auto;
   display: grid;
-  grid-template-columns: 1fr auto;
+  grid-template-columns: minmax(0, 1fr) auto;
   gap: 10px;
 }
 .release-form input {
+  width: 100%;
+  min-width: 0;
   height: 56px;
   border-radius: 999px;
   border: 1px solid rgba(200, 204, 212, 0.22);
@@ -386,10 +415,12 @@ h1, h2, h3, .success-title {
 .modal-scrim { position: absolute; inset: 0; border: 0; background: rgba(0, 0, 0, 0.62); }
 .modal-card {
   position: relative;
-  width: min(440px, 100%);
+  width: min(420px, calc(100vw - 32px));
+  max-height: calc(100svh - 32px);
+  overflow: auto;
   padding: 32px 28px 22px;
   border-radius: 24px;
-  background: rgba(16, 16, 20, 0.92);
+  background: rgba(16, 16, 20, 0.96);
   border: 1px solid rgba(200, 204, 212, 0.2);
   box-shadow: 0 30px 80px rgba(0, 0, 0, 0.45);
   text-align: center;
@@ -418,7 +449,8 @@ h1, h2, h3, .success-title {
   text-underline-offset: 4px;
   cursor: pointer;
 }
-.modal .release-form { width: 100%; }
+.modal .release-form { width: 100%; grid-template-columns: minmax(0, 1fr); }
+.modal .release-form button { width: 100%; }
 .modal .form-error { text-align: center; }
 
 .privacy {
@@ -440,7 +472,7 @@ h1, h2, h3, .success-title {
     position: relative !important;
     inset: auto !important;
     width: 100% !important;
-    height: 46svh !important;
+    height: 52svh !important;
     object-fit: cover;
     object-position: 70% center;
   }
@@ -454,7 +486,8 @@ h1, h2, h3, .success-title {
   .step.flip .step-copy { order: 0; }
   .step-copy { padding-top: 110px; }
   .step-num { font-size: 220px; left: -12px; top: -16px; }
-  .compatible { padding-top: 48px; }
+  .inside { height: 220vh; }
+  .stage-tabs { flex-wrap: wrap; gap: 12px 18px; }
   .bag-grid { gap: 8px; }
   .bag-grid figure { height: 16vh; min-height: 108px; border-radius: 12px; }
   .footer-inner { flex-direction: column; align-items: flex-start; }

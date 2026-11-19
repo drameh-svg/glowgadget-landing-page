@@ -18,27 +18,24 @@ const galleryItems = [
   { src: "/orbit/bag-mint.jpg", alt: "Orbit attached to a mint green handbag", title: "On the bag", subtitle: "Mint hardware, silver charm" },
   { src: "/orbit/bag-suede.jpg", alt: "Orbit clipped to a beige suede bag next to a camera", title: "Packed for the night", subtitle: "Camera, cards, charm" },
   { src: "/orbit/bag-night.png", alt: "Orbit hanging from a burgundy bag at night", title: "Out with you", subtitle: "It stays on the strap" },
-  { src: "/orbit/import-diner.png", alt: "A phone importing photos from Orbit at a diner table", title: "Import", subtitle: "Choose the frames worth keeping" },
+  { src: "/orbit/step-import.jpg", alt: "A phone importing photos from Orbit at a diner table", title: "Import", subtitle: "Choose the frames worth keeping" },
 ];
 
 const connectors = [
   {
+    name: "Closed",
     src: "/orbit/usb-closed.png",
     alt: "Orbit closed, a brushed-silver bag charm",
-    width: 1024,
-    height: 341,
   },
   {
+    name: "Caps off",
     src: "/orbit/usb-caps.png",
     alt: "Orbit with both protective caps unscrewed",
-    width: 1024,
-    height: 341,
   },
   {
+    name: "USB & USB-C",
     src: "/orbit/usb-open.png",
     alt: "Orbit opened to show a USB-C plug, a USB-A plug, an SD card, and a microSD card",
-    width: 1024,
-    height: 512,
   },
 ] as const;
 
@@ -47,41 +44,72 @@ const steps = [
     n: "1",
     title: "Insert the card",
     body: "Slide your camera’s SD or microSD card into Orbit.",
-    src: "/orbit/usb-open.png",
-    alt: "Orbit opened to show USB-C, USB-A, an SD card, and a microSD card",
+    src: "/orbit/step-insert.jpg",
+    alt: "Hands sliding an SD card into Orbit",
     width: 1024,
-    height: 512,
+    height: 682,
   },
   {
     n: "2",
     title: "Plug in the charm",
     body: "Connect Orbit directly to your phone or laptop.",
-    src: "/orbit/laptop.jpg",
-    alt: "Orbit plugged into a laptop beside a compact camera",
-    width: 1024,
-    height: 682,
+    src: "/orbit/step-plug.jpg",
+    alt: "Orbit plugged into a phone with photos added",
+    width: 414,
+    height: 576,
   },
   {
     n: "3",
     title: "Upload and share",
     body: "Choose your photos and add them to a shared album.",
-    src: "/orbit/import-diner.png",
+    src: "/orbit/step-import.jpg",
     alt: "A phone importing photos from Orbit at a diner table",
-    width: 655,
-    height: 655,
+    width: 768,
+    height: 1024,
   },
 ] as const;
 
 function CompatibleSection() {
+  const [stage, setStage] = useState(0);
+
+  useEffect(() => {
+    const section = document.getElementById("inside");
+    if (!section) return;
+    const onScroll = () => {
+      const rect = section.getBoundingClientRect();
+      const total = section.offsetHeight - window.innerHeight;
+      const passed = Math.min(Math.max(-rect.top, 0), Math.max(total, 1));
+      const progress = total > 0 ? passed / total : 0;
+      setStage(progress < 0.34 ? 0 : progress < 0.67 ? 1 : 2);
+    };
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
   return (
-    <section className="compatible" id="inside" aria-labelledby="inside-title">
-      <h2 id="inside-title">Compatible with both USB & USB-C</h2>
-      <div className="usb-row">
-        {connectors.map((item) => (
-          <figure key={item.src}>
-            <Image src={item.src} alt={item.alt} width={item.width} height={item.height} sizes="(max-width: 800px) 100vw, 900px" />
-          </figure>
-        ))}
+    <section className="inside" id="inside" aria-labelledby="inside-title">
+      <div className="inside-sticky">
+        <h2 id="inside-title">Compatible with both USB & USB-C</h2>
+        <ol className="stage-tabs">
+          {connectors.map((item, index) => (
+            <li key={item.name} className={index === stage ? "on" : undefined}>
+              {item.name}
+            </li>
+          ))}
+        </ol>
+        <div className="stage-frame">
+          {connectors.map((item, index) => (
+            <Image
+              key={item.src}
+              src={item.src}
+              alt={index === stage ? item.alt : ""}
+              fill
+              sizes="(max-width: 800px) 100vw, 900px"
+              className={index === stage ? "stage-photo show" : "stage-photo"}
+            />
+          ))}
+        </div>
       </div>
     </section>
   );
@@ -92,10 +120,6 @@ function CarrySection() {
     <section className="carry" aria-labelledby="carry-title">
       <div className="carry-copy">
         <h2 id="carry-title">Built to stay with you.</h2>
-        <p>
-          Orbit works as a practical reader and a sculptural bag charm. Its brushed-silver body fits naturally with the
-          hardware already on your bag.
-        </p>
       </div>
       <div className="bag-grid">
         <figure>
@@ -191,10 +215,6 @@ export default function HomePage() {
               Orbit by Glow Gadget
             </p>
             <h1>Share your photos before the night ends.</h1>
-            <p className="lede">
-              Orbit moves photos from your camera to your phone in seconds, so everyone gets the pictures while the
-              moment is still happening.
-            </p>
             <div className="hero-actions">
               <a className="btn solid" href="#early-access">
                 Get early access
