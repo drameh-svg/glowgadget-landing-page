@@ -1,3 +1,4 @@
+import { appendFile } from "fs/promises";
 import { NextResponse } from "next/server";
 import { Resend } from "resend";
 
@@ -13,21 +14,19 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "Please enter a valid email address." }, { status: 400 });
     }
 
-    if (!process.env.RESEND_API_KEY || !process.env.SIGNUP_NOTIFICATION_EMAIL) {
-      if (process.env.NODE_ENV === "development") {
-        console.info("Glow Gadget signup", { email, source });
-        return NextResponse.json({ success: true, demo: true });
-      }
-      return NextResponse.json({ error: "Signup service is not configured yet." }, { status: 503 });
-    }
+    const record = { email, source, submitted: new Date().toISOString() };
+    console.info("Orbit release list", record);
+    await appendFile("/tmp/glow-signups.jsonl", `${JSON.stringify(record)}\n`).catch(() => undefined);
 
-    const resend = new Resend(process.env.RESEND_API_KEY);
-    await resend.emails.send({
-      from: process.env.SIGNUP_FROM_EMAIL || "Glow Gadget <onboarding@resend.dev>",
-      to: process.env.SIGNUP_NOTIFICATION_EMAIL,
-      subject: "New Glow Gadget early-access signup",
-      text: `Email: ${email}\nSource: ${source}\nSubmitted: ${new Date().toISOString()}`,
-    });
+    if (process.env.RESEND_API_KEY && process.env.SIGNUP_NOTIFICATION_EMAIL) {
+      const resend = new Resend(process.env.RESEND_API_KEY);
+      await resend.emails.send({
+        from: process.env.SIGNUP_FROM_EMAIL || "Glow Gadget <onboarding@resend.dev>",
+        to: process.env.SIGNUP_NOTIFICATION_EMAIL,
+        subject: "New Orbit release-list signup",
+        text: `Email: ${email}\nSource: ${source}\nSubmitted: ${record.submitted}`,
+      });
+    }
 
     return NextResponse.json({ success: true });
   } catch {
