@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import { ConstellationGallery } from "@/app/components/ConstellationGallery";
 import HoloMosaic from "@/app/components/HoloMosaic";
+import TechText from "@/app/components/TechText";
 import { ReleaseForm } from "@/app/components/ReleaseForm";
 import { Reveal } from "@/app/components/Reveal";
 import { SiteFooter, SiteHeader } from "@/app/components/SiteChrome";
@@ -262,7 +263,23 @@ export default function HomePage() {
               <span />
               Orbit by Glow Gadget
             </p>
-            <h1>Share your photos before the night ends.</h1>
+            <h1 className="hero-name">
+              <TechText
+                text="Orbit"
+                fontWeight={400}
+                fontSize={180}
+                align="left"
+                reveal="letter"
+                dashLength={4}
+                dashGap={2}
+                specks={15}
+                intro="none"
+                introDuration={2}
+                clickKick
+                guides={false}
+              />
+            </h1>
+            <p className="hero-sub">Share your photos before the night ends.</p>
             <div className="hero-actions">
               <a className="btn solid" href="#early-access">
                 Get early access

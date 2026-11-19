@@ -174,7 +174,15 @@ h1, h2, h3, .success-title {
   filter: drop-shadow(0 22px 28px rgba(0, 0, 0, 0.55));
   pointer-events: none;
 }
-.hero-photo { object-fit: cover; object-position: 72% center; }
+.hero-photo {
+  object-fit: cover;
+  object-position: 72% center;
+  animation: hero-drift 1.6s cubic-bezier(0.22, 0.7, 0.2, 1) both;
+}
+@keyframes hero-drift {
+  from { transform: scale(1.045); }
+  to { transform: none; }
+}
 .hero-shade {
   position: absolute;
   inset: 0;
@@ -185,9 +193,33 @@ h1, h2, h3, .success-title {
 .hero-copy {
   position: relative;
   z-index: 1;
-  width: min(560px, calc(100% - 80px));
+  width: min(680px, calc(100% - 72px));
   margin: 72px 0 0 max(40px, calc((100% - 1240px) / 2));
+}
+.hero-copy .eyebrow,
+.hero-name,
+.hero-sub,
+.hero-actions {
   animation: rise-in 0.9s cubic-bezier(0.22, 0.7, 0.2, 1) both;
+}
+.hero-copy .eyebrow { animation-delay: 0.05s; }
+.hero-name { animation-delay: 0.14s; }
+.hero-sub { animation-delay: 0.3s; }
+.hero-actions { animation-delay: 0.44s; }
+.hero-name {
+  height: clamp(148px, 18vw, 210px);
+  margin: 0;
+  color: var(--ink);
+  line-height: 1;
+}
+.hero-sub {
+  margin: 6px 0 0;
+  max-width: 14em;
+  font-family: var(--font-display), "Averia Serif Libre", Georgia, serif;
+  font-weight: 400;
+  font-size: clamp(30px, 3.4vw, 48px);
+  line-height: 1.08;
+  letter-spacing: -0.03em;
 }
 .eyebrow {
   display: flex;
@@ -530,6 +562,8 @@ h1, h2, h3, .success-title {
   }
   .hero-shade { display: none; }
   .hero-copy { margin: 22px 20px 36px; width: auto; max-width: none; }
+  .hero-name { height: clamp(112px, 30vw, 150px); }
+  .hero-sub { font-size: clamp(26px, 7vw, 36px); max-width: 16em; }
   .hero h1, .early h2 { font-size: clamp(38px, 10vw, 56px); }
   .gallery-band { padding-top: 72px; }
   .gallery-band .constellation { min-height: 420px; height: 68vh; }
@@ -551,7 +585,12 @@ h1, h2, h3, .success-title {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .hero-copy, .reveal-item.show { animation: none; }
+  .hero-photo,
+  .hero-copy .eyebrow,
+  .hero-name,
+  .hero-sub,
+  .hero-actions,
+  .reveal-item.show { animation: none; }
   .btn, .release-form button, .bag-grid img, .step img { transition: none; }
   .btn:hover, .release-form button:hover, .bag-grid figure:hover img, .step figure:hover img { transform: none; }
 }
