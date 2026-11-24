@@ -37,6 +37,16 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${sans.variable} ${display.variable}`}>
+      <head>
+        <script async src="https://www.googletagmanager.com/gtm.js?id=GTM-W2K8RNBX" />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());`,
+          }}
+        />
+      </head>
       <body>
         <MetaPixel />
         <a className="skip" href="#main">
